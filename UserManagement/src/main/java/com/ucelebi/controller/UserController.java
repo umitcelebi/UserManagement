@@ -1,10 +1,15 @@
 package com.ucelebi.controller;
 
+import java.security.Identity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +42,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/signUp")
-	public ModelAndView signInn(Model model) {
+	public ModelAndView signUp(Model model) {
 		ArrayList<RoleEnum> roles=new ArrayList<>(Arrays.asList(RoleEnum.values()));
 		 model.addAttribute("User", new User());
 		 model.addAttribute("role",roles);
@@ -46,14 +51,16 @@ public class UserController {
 	
 	
 	@PostMapping("/signUp")
-	public ModelAndView signIn(@ModelAttribute User user) {
+	
+	public ModelAndView signUp(HttpSession session, HttpServletRequest request,@ModelAttribute User user) {
 		
-		if(user.getRole()==null) {
+		if(request.isUserInRole("ROLE_USER")) {
 			user.setRole("ROLE_USER");
 		}
+		
 		userService.Add(user);
 		
-		return new ModelAndView("redirect:/user");
+		return new ModelAndView("redirect:/");
 	}
 	
 	@GetMapping("admin/edit")

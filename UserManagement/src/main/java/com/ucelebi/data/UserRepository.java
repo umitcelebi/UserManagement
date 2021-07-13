@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ucelebi.entity.User;
 
-@Repository
+//@Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-	Optional<User> findByUserName(String username);	
-	
+	Optional<User> findByUserName(String username);
 }

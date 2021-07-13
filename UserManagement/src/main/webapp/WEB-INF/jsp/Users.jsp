@@ -49,7 +49,7 @@
 	        <td><c:out value="${user.phone}"/></td>
 	        <td><fmt:formatDate value="${user.birthDay}" pattern="yyyy-MM-dd" /></td>
 	        <sec:authorize access="hasRole('ADMIN')">
-	        <td><a title="/user/admin/delete?id= <c:out value='${user.id}'/> " class="btn btn-danger btn-sm" href="#">Delete</a></td>
+	        <td><a onclick="deleteUser(event)" href="/user/admin/delete?id= <c:out value='${user.id}'/> " class="btn btn-info btn-sm" href="#">Delete</a></td>
 	        <td><a class="btn btn-primary btn-sm" href="/user/admin/edit?id= <c:out value='${user.id}'/> ">Edit</a></td>
 	        </sec:authorize>
       	</tr>

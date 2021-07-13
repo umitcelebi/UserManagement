@@ -1,9 +1,10 @@
-$(".btn-danger").click(function (e) {
-	if (confirm('Are u Sure?')) {
+
+function deleteUser(e) {
+	
+  if (confirm('Are u Sure?')) {
 		
-		e.preventDefault();
-	    var url=$(this).attr('title');
-	    console.log($(this).attr('title'));
+	    var url=$(this).attr('href');
+	    console.log(url);
 	    $.ajax({
 	        url: url,
 	        type: "GET",
@@ -16,18 +17,20 @@ $(".btn-danger").click(function (e) {
 	        } 
 	    });
 	} else {
+		e.preventDefault();
 	    alert('You refused to delete.');
 	}
-    
-    
-});
+}
 
 
-$('#form1').validate({
-
-    submitHandler: function(form) {
-        $.ajax({
-            url: "/user/signUp",
+$("#create").click(function (e) {
+        
+        e.preventDefault();
+if($('#form1').isValid){
+	
+	
+	$.ajax({
+            url: "user/signUp",
             type: "POST",
             data: $(form).serialize(),
             success: function (result) {
@@ -38,5 +41,14 @@ $('#form1').validate({
                 alert("an error has occurred.");
             }            
         });
-    }
-});
+	
+	
+}
+        
+
+
+    });
+
+
+
+
